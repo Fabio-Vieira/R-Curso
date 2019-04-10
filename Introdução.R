@@ -21,7 +21,7 @@
 #Podemos usar a função class() para descobrir a classe ou tipo de um objeto
 
 #Pedindo ajuda sobre a função
-?class
+?class #também é possível pedir ajuda clicando em "F1" com o cursor no nome da função
 help(class)
 
 class(4)
