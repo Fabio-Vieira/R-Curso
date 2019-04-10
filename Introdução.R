@@ -148,26 +148,29 @@ installed.packages("ggplot2")
 #No caso de um conjunto de dados presente em algum pacote, devemos carregar o pacote para invocar os
 #dados
 
-dados <- cane #O pacote onde o conjunto de dados 'cane' está, ainda não foi carregado
+cane #O pacote onde o conjunto de dados 'cane' está, ainda não foi carregado
 
 #install.packages("boot")
 
 library(boot) 
-dados <- cane
+?cane
 head(cane)
-tapply(dados$r, dados$block, mean)
+tapply(cane$r, cane$block, mean)
 
 #O mesmo vale para funções
 
 #Um exemplo pode ser o Augmented Dickey-Fuller test, que testa a estacionariedade de uma série tem-
 #poral
+set.seed(1) #Comando para fixar a geração de valores aleatórios
 
 ?adf.test #O R não encontra a função, pois está dentro de um pacote ainda não carregado
 
 #install.packages("aTSA")
 
 library(aTSA)
-série <- arima.sim(list(order = c(1,0,0), ar = 0.2), n = 100)
-plot(série)
-adf.test(série)
+
+?adf.test
+
+plot(arima.sim(list(order = c(1,0,0), ar = 0.2), n = 100))
+adf.test(arima.sim(list(order = c(1,0,0), ar = 0.2), n = 100))
 
