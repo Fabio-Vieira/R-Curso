@@ -145,10 +145,12 @@ installed.packages("ggplot2")
 #Para ativar o pacote e começar a utilizar suas funções, podemos utilizar tanto a função require(.)
 #como a função library(.)
 
-#No caso de um banco de dados presente em algum pacote, devemos carregar o pacote para invocar os
+#No caso de um conjunto de dados presente em algum pacote, devemos carregar o pacote para invocar os
 #dados
 
-dados <- cane
+dados <- cane #O pacote onde o conjunto de dados 'cane' está, ainda não foi carregado
+
+#install.packages("boot")
 
 library(boot) 
 dados <- cane
@@ -161,6 +163,8 @@ tapply(dados$r, dados$block, mean)
 #poral
 
 ?adf.test #O R não encontra a função, pois está dentro de um pacote ainda não carregado
+
+#install.packages("aTSA")
 
 library(aTSA)
 série <- arima.sim(list(order = c(1,0,0), ar = 0.2), n = 100)
