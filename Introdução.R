@@ -95,7 +95,7 @@ matrix(c(10, 34, 45, 52, "Bárbara", 101, 73, 90, 45, 66, 23, 11), nrow = 3, nco
 list(Nomes = c("João", "Maria"), Idades = c(23, 25))
 class(list(Nomes = c("João", "Maria"), Idades = c(23, 25)))
 
-#Elementos dentro da lista podem ter cumprimentos diferences
+#Elementos dentro da lista podem ter comprimentos diferences
 list(Nomes = c("João", "Maria", "Carlos"), Idades = c(23, 25))
 
 #Uma lista também pode conter elementos de diferentes dimensões
