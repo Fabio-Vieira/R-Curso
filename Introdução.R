@@ -16,6 +16,23 @@
 32 * 5  #Multiplicação
 4 ^ 2   #Potenciação
 
+##################################################################################################
+###################################Operadores Relacionais no R####################################
+##################################################################################################
+
+#Os operadores são: < Menor que
+#                   > Maior que
+#                   <= Menor ou igual
+#                   >= Maior ou igual
+#                   == Igual a
+#                   != Diferente de
+#Esses operadores retornam TRUE se a relação for verdadeira e FALSE se for falsa
+2 < 0
+5 > 4
+4 >= 4
+"a" == "b"
+"a" != "b"
+
 #########Classes##########
 
 #Podemos usar a função class() para descobrir a classe ou tipo de um objeto
