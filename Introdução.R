@@ -228,7 +228,21 @@ df1 <- data.frame(Id = c(1, 2, 3, 4, 5, 6, 7, 8),
 df1
 class(df1)
 
+#################################################################################################
+#########################################Exclusão de variáveis###################################
+#################################################################################################
 
+#Para excluirmos variáveis no R podemos utilizar as funções remove(.) e rm(.)
+
+remove(df1)
+df1 #Não está mais definido
+
+rm(lista2)
+lista2 
+
+#Caso queira remover todas as variáveis armazenadas no 'environment', basta usar
+
+rm(list = ls())
 
 ##################################################################################################
 #################################Instalação e carregamentos de pacotes############################
