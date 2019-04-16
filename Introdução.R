@@ -141,6 +141,95 @@ c(rep("Masculino", 5), rep("feminino", 8)) #A função rep(.) produz repetiçõe
 factor(c(rep("Masculino", 5), rep("feminino", 8)))
 
 
+#############################################################################################################
+###########################################Criação de Variáveis no R#########################################
+#############################################################################################################
+
+#Quando começamos a construir sintaxes mais complexas, podemos desejar armazenar determinados valores para 
+#nos referirmos a eles posteriormente. Nessas horas, a criação de variáveis pode ser extremamente útil
+
+#Quando falamos de estrutura de dados, também tocamos brevemente no assunto tipos de dados (numérico, caractere, lógico),
+#o R aceita a declaração de variáveis que sejam de qualquer um dos tipos suportados pela linguagem.
+
+#O nome da variável é "a" e a forma usada para criá-la é com um sinal de menor e um traço "<-"
+
+a <- 4
+class(a)
+
+b <- "olá pessoal!"
+class(b)
+
+c <- TRUE
+class(c)
+
+#Para visualizar o valor guardado na variável, podemos utilizar a função print(.)
+print(a)
+
+print(b)
+
+print(c)
+
+#Ou podemos simplesmentes escrever o nome da variável e rodar
+a
+b
+c
+
+#Também podemos armazenar qualquer uma das estruturas de dados discutidas anteriormente em variáveis
+
+#####Vetor numérico####
+
+meu_vetor <- c(1, 2, 3, 4, 5)
+class(meu_vetor)
+is.vector(meu_vetor) #Retorna TRUE se o objeto for um vetor
+print(meu_vetor)
+
+meu_vetor2 <- seq(1, 10, by = 0.5) #cria uma sequência
+class(meu_vetor2)
+is.vector(meu_vetor2)
+print(meu_vetor2)
+
+#####Vetor de caracteres#####
+
+meu_vetor3 <- c("João", "Maria", "Carro", "Casa")
+class(meu_vetor3)
+is.vector(meu_vetor3)
+print(meu_vetor3)
+
+meu_vetor4 <- c("a", "b", "c", "d")
+class(meu_vetor4)
+is.vector(meu_vetor4)
+print(meu_vetor4)
+
+######Matrizes#####
+
+matriz1 <- matrix(seq(1, 9, by = 1), ncol = 3)
+matriz1
+class(matriz1) #class(.) também retorna o tipo do objeto
+is.matrix(matriz1) #Retorna TRUE se o objeto for uma matriz
+
+matriz2 <- matrix(c(1, 2, "a", 4, 5, 6, "João", 44, 100), nrow = 3)
+matriz2 #Matrizes só aceitam variáveis de um único tipo, portanto o R força todas as variáveis serem do mesmo tipo, por isso mesmo os números aparecem entre aspas
+
+######Listas######
+
+lista1 <- list(Nomes = c("Carlos", "Jonas", "Leonardo"), Idades = c(8, 22, 57))
+lista1
+class(lista1)
+is.list(lista1)
+
+lista2 <- list(titulos = c("Dom Casmurro", "Memórias Póstumas de Brás Cubas"),
+               autores = c("Machado de Assis"),
+               traducao = c(14, 12))
+lista2 #Uma lista pode armazenar elementos de diferentes comprimetos
+
+#####Data Frames####
+df1 <- data.frame(Id = c(1, 2, 3, 4, 5, 6, 7, 8),
+                  Nomes = c("Mariana", "Lucas", "Daniel", "Carlinhos", "Zeca", "Fred", "Dentinho", "Josivaldo"))
+df1
+class(df1)
+
+
+
 ##################################################################################################
 #################################Instalação e carregamentos de pacotes############################
 ##################################################################################################
