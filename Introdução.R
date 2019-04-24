@@ -15,6 +15,8 @@
 10 / 2  #Divisão
 32 * 5  #Multiplicação
 4 ^ 2   #Potenciação
+sqrt(16)#Raiz quadrada
+abs(-1) #absoluto
 
 ##################################################################################################
 ###################################Operadores Relacionais no R####################################
@@ -30,8 +32,11 @@
 2 < 0
 5 > 4
 4 >= 4
-"a" == "b"
-"a" != "b"
+4 <= 6
+1 == 2
+1 == 1
+1 != 1
+1 != 2
 
 #########Classes##########
 
@@ -43,7 +48,7 @@ help(class)
 
 class(4)
 class("ISP dados") #Caracteres devem ser declarados entre aspas
-class(TRUE)
+?class(TRUE)
 
 ####Criação de sequências####
 #Podemos usar ":" para criar uma sequência no R
@@ -51,7 +56,8 @@ class(TRUE)
 1:50
 -5:5
 
-#Caso seja necessário criar sequências que não sejam de números inteiros, podemos usar a função
+#Caso seja necessário criar sequências que não sejam de números inteiros ou  não consecutivas, 
+#podemos usar a função
 #seq(.)
 
 #Pedindo ajuda sobre a função
@@ -59,7 +65,8 @@ class(TRUE)
 help(seq)
 
 seq(from = 1, to = 10, by = 0.5)
-seq(from = -10, to = 10, 0.1)
+seq(-10, 10, 0.1)
+seq(by = -0.1, from = 10, to = -10)
 
 ##################################################################################################
 ########################################Estrutura de dados########################################
@@ -76,11 +83,15 @@ seq(from = -10, to = 10, 0.1)
 c(1, 2, 3, 4, 5, 10, 14, 21)
 class(c(1, 2, 3, 4, 5, 10, 14, 21))
 
-c(43, 32, 25, 67, 9, 93, 52, 8)
-class(c(1, 2, 3, 4, 5, 10, 14, 21))
+c("a", "b", "c", "d", "e", "f", "g", "h")
+c(letters[1:8])
+class(letters[1:8])
 
 c(TRUE, FALSE, TRUE, TRUE)
 class(c(TRUE, FALSE, TRUE, TRUE))
+
+c(1,letters[1:8])
+class(c(1,letters[1:8])) #Note que o número 1 é convertido em caractere
 
 ####Matriz#####
 
@@ -88,15 +99,24 @@ class(c(TRUE, FALSE, TRUE, TRUE))
 ?matrix
 
 matrix(1:9, ncol = 3)
+matrix(1:12, nrow = 3) #É preciso especificar o número de linhas ou de colunas, não é necessário colocar ambos os argumentos
+matrix(1:9, ncol = 3, byrow = TRUE)
 
 matrix(c(10, 34, 45, 52, 99, 101, 73, 90, 45, 66, 23, 11), nrow = 3, ncol = 4)
 class(matrix(c(10, 34, 45, 52, 99, 101, 73, 90, 45, 66, 23, 11), nrow = 3, ncol = 4))
+
+matrix(letters[1:12], nrow = 3, ncol = 4)
+class(matrix(letters[1:12], nrow = 3))
+
 
 #Usando a função array para criar uma matrix
 ?array
 
 array(c(10, 34, 45, 52, 99, 101, 73, 90, 45, 66, 23, 11), dim = c(3, 4))
+array(c(10, 34, 45, 52, 99, 101, 73, 90, 45, 66, 23, 11), dim = c(12))
 class(array(c(10, 34, 45, 52, 99, 101, 73, 90, 45, 66, 23, 11), dim = c(3, 4)))
+class(array(c(10, 34, 45), dim = c(3, 1)))
+
 
 #Matrizes e vetores armazenam dados de apenas uma classe
 c(1, 2, 3, 4, 5, "Jonas", 14, 21)
@@ -109,36 +129,45 @@ matrix(c(10, 34, 45, 52, "Bárbara", 101, 73, 90, 45, 66, 23, 11), nrow = 3, nco
 #Vamos usar a função list(.) nesse caso
 ?list
 
-list(Nomes = c("João", "Maria"), Idades = c(23, 25))
-class(list(Nomes = c("João", "Maria"), Idades = c(23, 25)))
+#A lista aceita qualquer tipo de dado, vetor, matriz
+list(Nomes = c("Erick", "Louise"), Idades = c(32, 25))
+class(list(Nomes = c("Erick", "Louise"), Idades = c(32, 25)))
 
 #Elementos dentro da lista podem ter comprimentos diferences
-list(Nomes = c("João", "Maria", "Carlos"), Idades = c(23, 25))
+list(Nomes = c("Erick", "Louise", "Carlos"), Idades = c(32, 25))
 
 #Uma lista também pode conter elementos de diferentes dimensões
-list(Vetor = c(1, 2, 3, 4, 5, 10, 14, 21),
-     Matriz = matrix(c(10, 34, 45, 52, 99, 101, 73, 90, 45, 66, 23, 11), nrow = 3, ncol = 4))
+list(Vetor = seq(1,21,3),
+     Matriz = matrix(letters[seq(1,24,2)], nrow = 3, ncol = 4))
 
 ####Data Frame#####
-#Data frame armazena classes e tipos diferentes em um formato semelhante ao de uma matriz
+#Data frame armazena classes e tipos diferentes em um formato semelhante ao de uma matriz, desde que tenham as mesmas dimensões
 
 #Para criar um data frame utilizamos a função data.frame(.)
 
 data.frame(Id = c(1, 2, 3, 4, 5, 6, 7, 8),
-           Nomes = c("Mariana", "Lucas", "Daniel", "Carlinhos", "Zeca", "Fred", "Dentinho", "Josivaldo"))
+           Nomes = c("Leonardo", "Nadine", "Carlos", "Vanessa", "Luciano", "Elisângela", "Emmanuel", "Flávia"))
+
+data.frame(Id = c(1, 2, 3, 4, 5, 6, 7, 8),
+           Nomes = c("Leonardo", "Nadine", "Carlos", "Vanessa", "Luciano", "Elisângela", "Emmanuel", "Flávia"),
+           Equipe = rep("projetos",8))
+?rep
 
 class(data.frame(Id = c(1, 2, 3, 4, 5, 6, 7, 8),
-                 Nomes = c("Mariana", "Lucas", "Daniel", "Carlinhos", "Zeca", "Fred", "Dentinho", "Josivaldo")))
-
+                 Nomes = c("Leonardo", "Nadine", "Carlos", "Vanessa", "Luciano", "Elisângela", "Emmanuel", "Flávia")))
+      
 
 #####Fator######
 
 #Para comunicar o R que uma variável possui valores nominais, vamos utilizar a função factor
 ?factor
 
-c(rep("Masculino", 5), rep("feminino", 8)) #A função rep(.) produz repetições de um elemento, para ver o help digite ?rep no console
+factor(c(rep("masculino", 5), rep("feminino", 8))) #A função rep(.) produz repetições de um elemento, para ver o help digite ?rep no console
 
-factor(c(rep("Masculino", 5), rep("feminino", 8)))
+factor(c(rep(1, 5), rep(0, 8)))
+factor(c(rep(1, 5), rep(0, 8)), labels = c("masculino","feminino"))
+
+class(factor(c(rep(1, 5), rep(0, 8)), labels = c("masculino","feminino")))
 
 
 #############################################################################################################
@@ -156,17 +185,19 @@ factor(c(rep("Masculino", 5), rep("feminino", 8)))
 a <- 4
 class(a)
 
-b <- "olá pessoal!"
+b <- "olá, pessoal!"
 class(b)
 
-c <- TRUE
+c <- TRUE #Cuidado ao nomear a sua variável. Não é recomendado dar um nome que seja uma função do R.
 class(c)
+
+#o R não aceita nomear variáveis quando o nome começa com um número (ex: 1aux).
+
+#1aux <- 1:5
 
 #Para visualizar o valor guardado na variável, podemos utilizar a função print(.)
 print(a)
-
 print(b)
-
 print(c)
 
 #Ou podemos simplesmentes escrever o nome da variável e rodar
@@ -178,24 +209,24 @@ c
 
 #####Vetor numérico####
 
-meu_vetor <- c(1, 2, 3, 4, 5)
+meu_vetor <- 1:5
 class(meu_vetor)
 is.vector(meu_vetor) #Retorna TRUE se o objeto for um vetor
-print(meu_vetor)
+meu_vetor
 
 meu_vetor2 <- seq(1, 10, by = 0.5) #cria uma sequência
 class(meu_vetor2)
 is.vector(meu_vetor2)
-print(meu_vetor2)
+meu_vetor2
 
 #####Vetor de caracteres#####
 
-meu_vetor3 <- c("João", "Maria", "Carro", "Casa")
+meu_vetor3 <- c("Ribeiro", "Jonas", "Bárbara", "Karina")
 class(meu_vetor3)
 is.vector(meu_vetor3)
 print(meu_vetor3)
 
-meu_vetor4 <- c("a", "b", "c", "d")
+meu_vetor4 <- c(letters[1:5])
 class(meu_vetor4)
 is.vector(meu_vetor4)
 print(meu_vetor4)
@@ -203,16 +234,17 @@ print(meu_vetor4)
 ######Matrizes#####
 
 matriz1 <- matrix(seq(1, 9, by = 1), ncol = 3)
+matriz1 <- matrix(1:9, ncol = 3)
 matriz1
 class(matriz1) #class(.) também retorna o tipo do objeto
 is.matrix(matriz1) #Retorna TRUE se o objeto for uma matriz
 
-matriz2 <- matrix(c(1, 2, "a", 4, 5, 6, "João", 44, 100), nrow = 3)
+matriz2 <- matrix(c(1, 2, "a", 4, 5, 6, "Biral", 44, 100), nrow = 3)
 matriz2 #Matrizes só aceitam variáveis de um único tipo, portanto o R força todas as variáveis serem do mesmo tipo, por isso mesmo os números aparecem entre aspas
 
 ######Listas######
 
-lista1 <- list(Nomes = c("Carlos", "Jonas", "Leonardo"), Idades = c(8, 22, 57))
+lista1 <- list(Nomes = c("Adriana", "Werneck", "Lívia"), Instituição = rep("ISP",3))
 lista1
 class(lista1)
 is.list(lista1)
@@ -223,8 +255,8 @@ lista2 <- list(titulos = c("Dom Casmurro", "Memórias Póstumas de Brás Cubas")
 lista2 #Uma lista pode armazenar elementos de diferentes comprimetos
 
 #####Data Frames####
-df1 <- data.frame(Id = c(1, 2, 3, 4, 5, 6, 7, 8),
-                  Nomes = c("Mariana", "Lucas", "Daniel", "Carlinhos", "Zeca", "Fred", "Dentinho", "Josivaldo"))
+df1 <- data.frame(Id = 1:8,
+                  Nomes = c("Leonardo", "Nadine", "Carlos", "Vanessa", "Luciano", "Elisângela", "Emmanuel", "Flávia"))
 df1
 class(df1)
 
@@ -245,6 +277,24 @@ lista2
 rm(list = ls())
 
 ##################################################################################################
+#################################Geração de números aleatórios####################################
+##################################################################################################
+
+#O ISP precisa gerar máscaras para o número do registro de ocorrência, gerar chaves para o banco de dados,
+#entre outras atividades que requerem números aleatórios.
+
+#Os números aleatórios são amostrados de distribuições de probabilidade, o R suporta uma grande quantidade
+#dessas distribuições. Dentre elas temos a normal, uniforme, binomail, etc. . .
+
+set.seed(7) #Comando para fixar a geração de valores aleatórios
+aux <- rnorm(1000, mean = 500, sd = 25) #Gerando 1000 valores de uma distribuição normal com média 500 e desvio padrão 25
+head(aux,20)
+
+set.seed(7)
+aux2 <- runif(1000, min = 5, max = 10) #Gerando 1000 valores de uma uniforme no intervalo (5, 10)
+head(aux2,20)
+
+##################################################################################################
 #################################Instalação e carregamentos de pacotes############################
 ##################################################################################################
 
@@ -256,6 +306,8 @@ rm(list = ls())
 ?install.packages
 
 install.packages("gglopt2") #repare que o nome do pacote deve estar entre aspas
+install.packages("foreign")
+install.packages("haven")
 
 #Para verificar se o pacote está de fato instalado, basta usar a função installed.packages(.)
 ?installed.packages
@@ -265,32 +317,10 @@ installed.packages("ggplot2")
 #Para ativar o pacote e começar a utilizar suas funções, podemos utilizar tanto a função require(.)
 #como a função library(.)
 
-#No caso de um conjunto de dados presente em algum pacote, devemos carregar o pacote para invocar os
-#dados
+#No caso de uma função presente em algum pacote, devemos carregar o pacote para invocar a função
 
-cane #O pacote onde o conjunto de dados 'cane' está, ainda não foi carregado
 
-#install.packages("boot")
+painel_upp <- read.dta13("//10.230.13.210/bd/Sispes/painel_upp.dta")
 
-library(boot) 
-?cane
-head(cane)
-tapply(cane$r, cane$block, mean)
-
-#O mesmo vale para funções
-
-#Um exemplo pode ser o Augmented Dickey-Fuller test, que testa a estacionariedade de uma série tem-
-#poral
-set.seed(1) #Comando para fixar a geração de valores aleatórios
-
-?adf.test #O R não encontra a função, pois está dentro de um pacote ainda não carregado
-
-#install.packages("aTSA")
-
-library(aTSA)
-
-?adf.test
-
-plot(arima.sim(list(order = c(1,0,0), ar = 0.2), n = 100))
-adf.test(arima.sim(list(order = c(1,0,0), ar = 0.2), n = 100))
-
+library("readstata13")
+painel_upp <- read.dta13("//10.230.13.210/bd/Sispes/painel_upp.dta")
