@@ -126,19 +126,3 @@ conf
 #read.delim usando o parâmetro clipboard
 
 base <- read.delim("clipboard")
-
-
-#Fazendo conexão com banco de dados, para tanto precisamos fazer a conexão com a máquina onde o banco está armazenado
-#Usamos o pacote RODBC para isso
-
-library(RODBC)
-
-#Com a função odbcConnect(.) especificamos a máquina com a qual queremos nos conectar
-
-myconn <- odbcConnect("ISPMAP_GEO07") 
-
-Sys.setenv(TZ='GMT') #Perguntar para Nadine
-
-check <-"SELECT * from sde.base_publica_cv WHERE titulo in (620) AND ano = 2018" #620 é etit para corrupção passiva
-
-data_publica <- sqlQuery(channel = myconn, query = check) #Submete a query para o banco de dados
