@@ -1,19 +1,18 @@
-###ATENÇÃO!!!! COLOCAR EXEMPLOS QUE POSTERIORMENTE FUNCIONEM NOS COMPUTADORES QUE SERÃO USADOS NO CURSO
-
 ######################################################################################################
 ######################################Estabelecendo Diretório#########################################
 ######################################################################################################
 
 #Nesse módulo vamos aprender a abrir arquivos de diversas extensões no R.
 
-#Assim como no SPSS o R também necessita de um diretório que aponte o caminho para os arquivos que vo-
+#Assim como no SPSS, o R também necessita de um diretório que aponte o caminho para os arquivos que vo-
 #cê deseja abrir, para tanto é necessário que você especifique seu diretório antes de tentar abrir o 
 #arquivo.
 
 #Para especificar um diretório usamos a função setwd(.)
 
 ?setwd
-setwd('C:/Users/Estatistica/Desktop/Curso-R') #O caminho do diretório precisa estar entre aspas
+setwd('//10.230.13.14/Aulas/Curso R') #O caminho do diretório precisa estar entre aspas e a barra
+#deve ser invertida /
 
 #Para verificar se o diretório correto está estabelecido, usamos função getwd(.)
 getwd() #Não é necessário nenhum parêmetro para essa função
@@ -38,45 +37,43 @@ list.files()
 #Para abrir .csv, vamos usar a função read.csv(.)
 ?read.csv
 
-circ <- read.csv("circ.csv", sep = ";", header = T)
-circ
-class(circ) #Retorna um data frame do arquivo lido
+base_dp <- read.csv("Base_DP_parcial.csv", sep = ";", header = T, nrows = 10)
+base_dp
+class(base_dp) #Retorna um data frame do arquivo lido
 
 ######txt######
 
-#Para ler arquivos em .txt, devemos usar a função read.delim(.)
+#Para ler arquivos em .txt convencionais, devemos usar a função read.delim(.)
 ?read.delim
 
-cisp <- read.delim("cisp.txt")
-cisp
-class(cisp) #Retorna um data frame do arquivo lido
+codmun <- read.delim("codmun.txt", sep = ";", header = T)
+codmun
+class(codmun) #Retorna um data frame do arquivo lido
+
+#Para ler arquivos em .txt com espaços fixos (fixed widths), devemos usar a função read.fwf(.)
+?read.fwf
+
+armas_pm <- read.fwf("ARMAS PM 01 JAN19.txt",sep = "\t",widths = c(20,25,23,23,33,32,16,15,64), nrows = 200)
+armas_pm
+class(armas_pm) #Retorna um data frame do arquivo lido
 
 #Também é possível utilizar essas funções para extrair arquivos da web
-circ2 <- read.csv("https://raw.githubusercontent.com/Fabio-Vieira/R-Curso/master/circ.csv",
-         header = T, sep = ";")
-circ2
-
-cisp2 <- read.delim("https://raw.githubusercontent.com/Fabio-Vieira/R-Curso/master/cisp.txt", sep = "\t")
-cisp2
+base_dp2 <- read.csv("http://www.ispdados.rj.gov.br/Arquivos/BaseDPEvolucaoMensalCisp.csv",
+                  header = T, sep = ";", nrows = 10)
+base_dp2
 
 #Também podemos ler os arquivos especificando o caminho da pasta
 
-
-circ3 <- read.csv("C:/Users/Estatistica/Desktop/Curso-R/circ.csv", sep = ";", header = TRUE)
-circ3
-
-cisp3 <- read.csv("C:/Users/Estatistica/Desktop/Curso-R/cisp.txt", sep = "\t")
-cisp3
+base_dp3 <- read.csv("//ESTATISTICA-08/Bases/Base_DP_parcial.csv", sep = ";", header = T, nrows = 10)
+base_dp3
 
 #Nesse caso, como estamos deixando claro de onde o R está puxando o arquivo, a especificação do diretório não tem
 #tanta importância
 getwd()
 
-#
-#
-#COLOCAR UM EXEMPLO DE ALGUMA PASTA DOS COMPUTADORES DO LABORATÓRIO
-#
-#
+base_dp3 <- read.csv("//ESTATISTICA-08/Bases/Base_DP_parcial.csv", sep = ";", header = T, nrows = 10)
+base_dp3
+
 
 #####xlsx######
 
@@ -93,16 +90,20 @@ desc <- read.xlsx("Descricao.xlsx")
 desc <- read.xlsx("Descricao.xlsx", sheetIndex = 1) 
 desc
 
-auto <- read.xlsx("Automovel.xlsx", sheetIndex = 1, encoding = "UTF-8") #Nota: o parâmetro enconding serva para os acentos apareçam nas palavras
+inscritos <- read.xlsx("//10.230.13.14/Pública/Dossiê mulher/DOSSIÊ MULHER 2018/Lista de inscritos (as)  Lançamento Dossiê Mulher  2018 (final).xlsx", sheetIndex = 1, header = T, encoding = "UTF-8")
+#Nota: o parâmetro enconding serve para que os acentos apareçam nas palavras
+
 
 ######sav######
 
 #Para abrirmos arquivos de SPSS (.sav) no R, precisamos carregar o pacote foreign e usar a função read.spss(.)
- 
+
 library(foreign)
 
-armas <- read.spss("rgocronu_limpa_armas.SAV", to.data.frame = TRUE)
-armas #Esse conjunto de dados já é bem maior, tanto que o R não imprime na tela todos os valores
+monitoramento_aisp <- read.spss("Monitoramento_AISP(novo).sav", to.data.frame = TRUE)
+monitoramento_aisp$datc <- as.POSIXct(monitoramento_aisp$datc, origin="1582-10-14", tz="GMT")
+monitoramento_aisp$datf <- as.POSIXct(monitoramento_aisp$datf, origin="1582-10-14", tz="GMT")
+monitoramento_aisp #Esse conjunto de dados já é bem maior, tanto que o R não imprime na tela todos os valores
 
 #####dta#####
 
@@ -122,10 +123,13 @@ conf
 
 #####Área de Transferência#####
 
-#Podemos querer abrir dados copiados para o computador usando o comando ctrl + c, nesse caso basta utilizar a função
+#Podemos querer abrir dados copiados para o computador usando o comando ctrl + c. Nesse caso basta utilizar a função
 #read.delim usando o parâmetro clipboard
+#abra https://cidades.ibge.gov.br/brasil/sintese/rj?indicadores=30255
 
+base <- read.delim("clipboard", header = F)
 base <- read.delim("clipboard")
+
 
 ####################################################################################################################
 ##############################################Visualizando a base de dados##########################################
@@ -136,10 +140,10 @@ base <- read.delim("clipboard")
 
 #Iremos utilizar a base de armas para introduzir as primeiras análises estatísticas.
 
-#Recapitulando a aula passada, precisaremos estabelecer o diretório onde se encontra o nosso arquivo. Além disso,
+#Recapitulando o início da aula, precisamos estabelecer o diretório onde se encontra o nosso arquivo. Além disso,
 #ele está em formato .xlsx, o que necessitará de um pacote
 
-setwd("C:/Users/Estatistica/Desktop/Curso-R")
+setwd("//10.230.13.14/Aulas/Curso R")
 getwd() #Verificando se estamos no diretório correto
 
 dir() #Conferindo se o nosso arquivo de fato está no nosso diretório
@@ -159,6 +163,10 @@ armas <- read.xlsx("base_armas_site.xlsx", sheet = 1, startRow = 1)
 ?View
 
 View(armas) #O mesmo resultado pode ser produzido se clicarmos no nome da base na aba environment
+
+#O argumento sheet da função xlsx fala qual é a aba do arquivo que deve ser lida
+
+explosivos <- read.xlsx("base_armas_site.xlsx", sheet = 3, startRow = 1)
 
 #Como já vimos anteriormente se tentarmos imprimir toda a base no console, o R omitirá parte dela por ser grande 
 #demais
