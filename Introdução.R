@@ -264,6 +264,13 @@ class(df1)
 #########################################Exclusão de variáveis###################################
 #################################################################################################
 
+#No caso de listas e data frames podemos usar uma forma especial para excluir um elemento da lista
+#ou uma coluna inteira do data frame
+
+lista1$Instituição <- NULL
+
+df1$Id <- NULL
+
 #Para excluirmos variáveis no R podemos utilizar as funções remove(.) e rm(.)
 
 remove(df1)
