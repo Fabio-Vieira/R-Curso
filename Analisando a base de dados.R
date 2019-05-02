@@ -4,47 +4,58 @@
 
 #Agora vamos calcular algumas estatísticas descritivas de uma base de dados
 
-#Não esquecer de estabelecer o diretório setwd("C:/Users/Estatistica/Desktop/Curso-R")
+#Não esquecer de estabelecer o diretório setwd("//10.230.13.14/Aulas/Curso R")
+
+setwd("//10.230.13.14/Aulas/Curso R")
+
+#Vamos utilizar o arquivo de veículos para os exemplos desta aula.
+
+library(foreign) #A função desse pacote abre arquivos de Excel de tamanhos muito maiores do que a função do pacote xlsx
+
+veiculos <- read.spss("veiculos_n_casados_2019.sav", to.data.frame = TRUE)
+veiculos$datc <- as.POSIXct(veiculos$datc, origin="1582-10-14", tz="GMT")
+veiculos$datf <- as.POSIXct(veiculos$datf, origin="1582-10-14", tz="GMT")
 
 #A função summary(.) retorna máximo, mínimo, média, mediana, primeiro e terceiro quartis
 
 ?summary
 
-summary(armas$total)
+summary(veiculos$mes)
 
-summary(armas$revolver)
+summary(veiculos$ano_veiculo)
 
 #Se quisermos calcular apenas a média, usamos a função mean(.)
 ?mean
 
-mean(armas$total)
+mean(veiculos$mes)
 
-mean(armas$revolver)
+mean(veiculos$ano_veiculo)
 
 #Para calcular o máximo e o mínimo usamos as funções max(.) e min(.)
 ?max
 ?min
 
-max(armas$total)
-min(armas$total)
+max(veiculos$mes)
+min(veiculos$mes)
 
-max(armas$revolver)
-min(armas$revolver)
+max(veiculos$ano_veiculo)
+min(veiculos$ano_veiculo)
 
 #Para calcular o desvio padrão de uma variável, utilizamos a funçõa sd(.)
 ?sd
 
-sd(armas$total)
+sd(veiculos$mes)
 
-sd(armas$fuzil) #Podemos calcular essa quantidade para qualquer variável
+sd(veiculos$ano_veiculo)
+sd(veiculos$ano_veiculo, na.rm = T) # A função não calcula o sd caso tenha valores NA
 
 #Se quiser arredondar os resultados para um número menor de casas decimais, podemos usar a função round(.),
 #vamos também passar o argumento 'digits' que representa o número de casas decimais que queremos mostrar
 ?round
 
-sd(armas$total)
+sd(veiculos$mes)
 
-round(sd(armas$total), digits = 2)
+round(sd(veiculos$mes), digits = 2)
 
 
 ####################################################################################################################
@@ -52,34 +63,50 @@ round(sd(armas$total), digits = 2)
 ####################################################################################################################
 
 
-#Podemos também, criar tabelas de frequência para verificar quantos casos desse crime foram registrados em cada mês
+#Podemos também, criar tabelas de frequência para verificar quantos veículos foram subtraídos/recuperados em cada mês
 #usando a função table(.)
 ?table
 
-table(armas$vano, armas$mes)
+table(veiculos$mes)
 
-table(armas$mes, armas$garruchao)
+table(veiculos$mes, veiculos$cor_veiculo)
 
 #Caso seja de interesse verificar quais cidades registraram ocorrências podemos usar a função unique(.) para ver quais
 #nomes de cidades aparecem ao menos uma vez no banco
 ?unique
 
-unique(armas$risp) 
+unique(veiculos$fmun_cod) 
 
 #Vemos que os números das Rips não saem ordenados, se quisermos ordenar o output, vamos utilizar a função sort(.)
 ?sort
 
-sort(unique(armas$risp))
+sort(unique(veiculos$fmun_cod))
 
 #Agora vamos introduzir o conceito de collapse no banco de dados, para que a construção de tabelas de frequências
-#mais elaboradas seja possível. Para tanto, vamos usar o pacote doBy e a função summaryBy(.)
+#mais elaboradas seja possível. Primeiramente, vamos ver contagens dentro de um microdado.
+
+library(plyr)
+
+contagem <- count(veiculos, c('circ','indicadora'))
+
+#isso é equivalente a:
+table(veiculos$circ,veiculos$indicadora)
+
+contagem <- count(veiculos, c('circ','indicadora','mes'))
+
+#isso é equivalente a (só que mais complicado de visualizar):
+table(veiculos$circ,veiculos$indicadora,veiculos$mes)
+
+
+#Agora vamos para outras estatísticas de interesse. Para isso vamos usar o pacote doBy e a função summaryBy(.)
 
 library(doBy)
 
 ?summaryBy
 
-collapsed <- summaryBy(arma_fabricacao_caseira + carabina + espingarda + fuzil + garrucha + garruchao + metralhadora +           
-         outros+ pistola + revolver + submetralhadora ~ mes + vano, data = armas, FUN = sum)
+collapsed <- summaryBy(ano_veiculo ~ circ + indicadora, data = veiculos, FUN = mean)
+collapsed <- summaryBy(ano_veiculo ~ circ + indicadora, data = veiculos, FUN = mean, na.rm = T)
+collapsed <- summaryBy(ano_veiculo ~ circ + indicadora, data = veiculos, FUN = c(mean,median), na.rm = T)
 
 
 prop.table(table(collapsed$garruchao.sum)) #Podemos retirar as proporção de frequências para uma arma específica
