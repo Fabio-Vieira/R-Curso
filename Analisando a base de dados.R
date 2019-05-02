@@ -1,4 +1,123 @@
 ####################################################################################################################
+##############################################Analisando a base de dados############################################
+####################################################################################################################
+
+####################################################################################################################
+######################################Extraindo valores de estrutura de dados#######################################
+####################################################################################################################
+
+####Vetor####
+
+#Se quisermos observar um elemento específico do vetor, podemos usar o operador colchetes "[]"
+
+meu_vetor <- 1:5
+
+meu_vetor
+
+#Extraindo um único elemento 
+
+meu_vetor[1] #Basta colocar o índice desse elemento dentro dos colchetes
+
+meu_vetor[4]
+
+#Extraindo sequência de valores
+
+meu_vetor[2:4] #Cria uma sequência da mesma forma que antes
+
+
+#Também funciona com vetor de caracteres
+
+meu_vetor2 <- c("Ribeiro", "Jonas", "Bárbara", "Karina")
+
+meu_vetor2[2]
+
+meu_vetor2[2:4]
+
+#Ou ainda, se quisermos apenas deixar um dos valores de fora
+
+meu_vetor2[-1]
+
+
+####Matriz####
+
+#A lógica de extrair valores de matrizes é a mesma do vetor, porém como a matriz é uma estrura bidimensional, precisamos
+#usar dos índices para localizar um valor específico
+
+matriz1 <- matrix(seq(1, 16, by = 1), ncol = 4)
+
+matriz1
+
+#Usado os colchetes com uma vírgula para separa o índice de linhas e colunas "[,]"
+
+#O valor antes da vírgula representa linhas e após a vírgula as colunas
+
+matriz1[1,2] #linha 1 coluna 2
+
+#Ainda podemos extrair uma sequência de elementos de uma linha ou coluna
+
+matriz1[1:3,4] #Extraindo os 3 primeiros elementos da coluna 4
+
+
+matriz1[2,2:4] #Extraindo os 3 últimos valores da segunda linha
+
+#Ainda podemos ignorar uma das dimensões e o comando irá retornar toda a linha ou coluna
+
+matriz1[1,] #Extraindo toda a linha 1
+
+matriz1[,4] #Extraindo toda a coluna 4
+
+
+####Lista####
+
+lista1 <- list(Nomes = c("Adriana", "Werneck", "Lívia"), Instituição = rep("ISP",3))
+
+lista1
+
+#Podemos referenciar diretamente o nome do componente da lista com o símbolo de dólar $
+
+lista1$Nomes
+
+lista1$Instituição
+
+#Esses elementos podem ser tratados como vetores, então, além do $ podemos usar os colchetes
+
+lista1$Nomes[1]
+
+
+####Data frame####
+
+df1 <- data.frame(Id = 1:8,
+                  Nomes = c("Leonardo", "Nadine", "Carlos", "Vanessa", "Luciano", "Elisângela", "Emmanuel", "Flávia"))
+df1
+
+#Podemos usar o mesmo método de listas para data frames, isto é, usar o nome do objeto seguido de $ e do nome da coluna
+
+df1$Nomes
+
+#Também
+
+df1$Nomes[1]
+
+#Mas um data frame também possui duas dimensões, dessa forma ele também aceita o método de extração aplicado para matrizes
+
+df1[2,2] #Linha 2, coluna 2
+
+df1[4,1] #Linha 4, coluna 1
+
+
+#Em alguns casos podemos querer sabe o comprimento e a dimensão de alguns objetos antes de extrair algum elemento dele,
+#nesse caso as funções dim(.) e length(.) são bastante úteis
+
+?dim
+
+?length
+
+dim(matriz1) #Mostra linha e coluna
+
+length(meu_vetor)
+
+
+####################################################################################################################
 ###############################################Estatísticas Descritivas#############################################
 ####################################################################################################################
 
