@@ -12,7 +12,7 @@
 
 ?setwd
 setwd('//10.230.13.14/Aulas/Curso R') #O caminho do diretório precisa estar entre aspas e a barra
-#deve ser invertida /
+#a barra deve ser invertida / ou duplas \\
 
 #Para verificar se o diretório correto está estabelecido, usamos função getwd(.)
 getwd() #Não é necessário nenhum parêmetro para essa função
