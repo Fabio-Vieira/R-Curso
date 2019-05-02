@@ -48,7 +48,7 @@ help(class)
 
 class(4)
 class("ISP dados") #Caracteres devem ser declarados entre aspas
-?class(TRUE)
+class(TRUE)
 
 ####Criação de sequências####
 #Podemos usar ":" para criar uma sequência no R
