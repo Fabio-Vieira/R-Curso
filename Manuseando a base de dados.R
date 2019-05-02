@@ -159,6 +159,12 @@ str(pop2$mes)
 
 levels(pop2$mes)
 
+#Ou ainda podemos fazer isso de maneira mais simples
+
+pop2 <- read.xlsx("populacao_munic_mes.xlsx", sheet = 1, startRow = 1)
+
+pop2$mes2 <- factor(pop2$mes,levels=seq(1:12),labels=c("Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"))
+
 #Vamos agora abrir o arquivo "SSP prisoes_apreensoes 2006.sav" para mostrar que podemos usar a mesma lógica de alteração,
 #para transformar uma variável de caractere para numérica
 
